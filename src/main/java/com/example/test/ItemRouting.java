@@ -27,5 +27,5 @@ public class ItemRouting {
     @JoinColumn(name = "item_table_id", nullable = false)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private ItemTable item;
+    private ItemTable itemTable;
 }

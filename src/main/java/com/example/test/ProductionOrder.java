@@ -14,6 +14,8 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Version;
@@ -32,8 +34,9 @@ public class ProductionOrder {
     @Column(nullable = false, unique = true, length = 20)
     private String orderNumber;
 
-    @Column(nullable = false, length = 15)
-    private String itemNumber;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "item_table_id", nullable = false)
+    private ItemTable ItemTable;
 
     @Column(nullable = false)
     private int orderQty;
@@ -66,6 +69,7 @@ public class ProductionOrder {
     @Column(length = 15)
     private OrderStatus status;
 
+    //concurrency -> optimistic concurrency control
     @Version
     private Long version;
 
@@ -94,12 +98,12 @@ public class ProductionOrder {
         this.orderNumber = orderNumber;
     }
 
-    public String getArticleNumber() {
-        return itemNumber;
+    public ItemTable getItemTable() {
+        return ItemTable;
     }
 
-    public void setArticleNumber(String itemNumber) {
-        this.itemNumber = itemNumber;
+    public void setItemTable(ItemTable itemTable) {
+        this.ItemTable = itemTable;
     }
 
     public int getOrderQty() {
