@@ -1,13 +1,12 @@
 package com.example.test;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,10 +24,8 @@ public class SalesOrder {
     @Column(nullable=false ,unique=true, length=20)
     private String SalesOrderNumber;
 
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="item_table_id", nullable=false)
+    @OneToMany(mappedBy="salesOrder",cascade=CascadeType.ALL , orphanRemoval=true)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private ItemTable itemId;
-
+    private SalesLine salesLine;
 }
