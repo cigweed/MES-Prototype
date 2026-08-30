@@ -28,4 +28,6 @@ public class ItemRouting {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private ItemTable itemTable;
+
+    private Department department;
 }
